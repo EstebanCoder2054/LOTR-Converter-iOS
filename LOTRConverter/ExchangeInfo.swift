@@ -24,61 +24,12 @@ struct ExchangeInfo: View {
                     .font(.title3)
                     .padding()
                 
-                HStack {
-                    Image(.goldpiece)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 40, height: 40)
-                    
-                    Text("1 Gold Piece = 4 Gold Pennies")
-                    
-                    Image(.goldpenny)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 40, height: 40)
-                }
-                
-                HStack {
-                    Image(.goldpiece)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 40, height: 40)
-                    
-                    Text("1 Gold Piece = 4 Gold Pennies")
-                    
-                    Image(.goldpenny)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 40, height: 40)
-                }
-                
-                HStack {
-                    Image(.goldpiece)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 40, height: 40)
-                    
-                    Text("1 Gold Piece = 4 Gold Pennies")
-                    
-                    Image(.goldpenny)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 40, height: 40)
-                }
-                
-                HStack {
-                    Image(.goldpiece)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 40, height: 40)
-                    
-                    Text("1 Gold Piece = 4 Gold Pennies")
-                    
-                    Image(.goldpenny)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 40, height: 40)
-                }
+                // Exchange rates - instances (props)
+                ExchangeRateItem(leftImage: .goldpiece, text: "1 Gold Piece = 4 Gold Pennies", rightImage: .goldpenny)
+                ExchangeRateItem(leftImage: .goldpenny, text: "1 Gold Penny = 4 Silver Pieces", rightImage: .silverpiece)
+                ExchangeRateItem(leftImage: .silverpiece, text: "1 Silver Piece = 4 Silver Pennies", rightImage: .silverpenny)
+                ExchangeRateItem(leftImage: .silverpenny, text: "1 Silver Penny = 100 Copper Pennies", rightImage: .copperpenny)
+
                 
                 Button("Done") {
                     
@@ -92,9 +43,6 @@ struct ExchangeInfo: View {
             }
             .foregroundStyle(.black)
         }
-        
-        
-        
     }
 }
 
