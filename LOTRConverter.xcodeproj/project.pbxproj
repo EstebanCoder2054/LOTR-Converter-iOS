@@ -6,13 +6,8 @@
 	objectVersion = 77;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		BE516EED2D4B04E600A5C7F4 /* ExchangeInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE516EEC2D4B04E600A5C7F4 /* ExchangeInfo.swift */; };
-/* End PBXBuildFile section */
-
 /* Begin PBXFileReference section */
 		BE0306812D3C865A00E2A27E /* LOTRConverter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LOTRConverter.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		BE516EEC2D4B04E600A5C7F4 /* ExchangeInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeInfo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -37,7 +32,6 @@
 		BE0306782D3C865A00E2A27E = {
 			isa = PBXGroup;
 			children = (
-				BE516EEC2D4B04E600A5C7F4 /* ExchangeInfo.swift */,
 				BE0306832D3C865A00E2A27E /* LOTRConverter */,
 				BE0306822D3C865A00E2A27E /* Products */,
 			);
@@ -125,7 +119,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BE516EED2D4B04E600A5C7F4 /* ExchangeInfo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
