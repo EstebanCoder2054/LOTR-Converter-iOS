@@ -8,6 +8,11 @@
 import SwiftUI
 
 struct ExchangeInfo: View {
+    
+    // Wrapped property, works pretty much like @State - but exposes the value
+    // We expose the dismiss functonality - so when Done gets pressed the modal gets dismissed
+    @Environment(\.dismiss) var dismiss
+    
     var body: some View {
         
         ZStack{
@@ -32,7 +37,7 @@ struct ExchangeInfo: View {
 
                 
                 Button("Done") {
-                    
+                    dismiss()
                 }
                 .buttonStyle(.borderedProminent)
                 .tint(.brown.mix(with: .black, by: 0.2))

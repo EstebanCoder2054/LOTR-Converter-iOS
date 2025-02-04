@@ -112,11 +112,11 @@ struct ContentView: View {
                     .padding(.trailing)
                 }
             }
-//            .border(.blue)
+        }
+        .sheet(isPresented: $showExchangeInfo) { // This a function modifier - modify the functionality
+            ExchangeInfo()
         }
     }
-    
-    
 }
 
 #Preview {
