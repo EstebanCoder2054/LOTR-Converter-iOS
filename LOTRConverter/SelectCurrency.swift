@@ -22,17 +22,23 @@ struct SelectCurrency: View {
             
             VStack{
                 Text("Select the currency you are starting with:").fontWeight(.bold)
-                HStack{
+                
+                // Grid - so we can display all items - the GridItem() X times is the amount of columns
+                LazyVGrid(columns: [GridItem(), GridItem(), GridItem()]){
                     CurrencyItem(currencyImage: .goldpiece, currencyName: "Gold Piece")
-                   
+                    
+                    //                    ForEach(){
+                    //
+                    //                    }
                     
                 }
                 
+                
                 Text("Select the currency you would like to convert to:").fontWeight(.bold)
-                HStack{
-                    CurrencyItem(currencyImage: .goldpiece, currencyName: "Gold Piece")
-                   
-                }
+                //                HStack{
+                //                    CurrencyItem(currencyImage: .goldpiece, currencyName: "Gold Piece")
+                //
+                //                }
                 
                 Button("Done") {
                     print("Done btn pressed")
