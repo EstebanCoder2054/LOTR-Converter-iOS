@@ -25,12 +25,11 @@ struct SelectCurrency: View {
                 
                 // Grid - so we can display all items - the GridItem() X times is the amount of columns
                 LazyVGrid(columns: [GridItem(), GridItem(), GridItem()]){
-                    CurrencyItem(currencyImage: .goldpiece, currencyName: "Gold Piece")
                     
-                    //                    ForEach(){
-                    //
-                    //                    }
-                    
+                    ForEach(CurrencyEnum.allCases){ item in
+                        CurrencyItem(currencyImage: item.image, currencyName: item.name)
+                        
+                    }
                 }
                 
                 

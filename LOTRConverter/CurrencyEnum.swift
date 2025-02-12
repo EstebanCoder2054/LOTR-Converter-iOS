@@ -10,12 +10,19 @@
 
 import SwiftUI
 
-enum CurrencyEnum: Double {
+// Double is the type of the raw value
+// CaseIterable means that we just converted this enum in something iterable (an array)
+// Identifiable means that each case/property of the enum is totally unique (UUID)
+enum CurrencyEnum: Double, CaseIterable, Identifiable {
+    
     case copperPenny = 6400
     case silverPenny = 64
     case silverPiece = 16
     case goldPenny = 4
     case goldPiece = 1
+    
+    var id: CurrencyEnum { self }
+
     
     // image is going to return an ImageResource
     // This is a computed property
@@ -34,6 +41,7 @@ enum CurrencyEnum: Double {
         }
     }
     
+    // computed property
     var name: String {
         switch self {
         case .copperPenny:
