@@ -9,10 +9,16 @@ import SwiftUI
 
 struct ContentView: View {
     
-    // stored property - pretty similar to a state - since it changes the value we use var instead of let
+    // stored properties - pretty similar to a state - since it changes the value we use var instead of let
     @State var showExchangeInfo = false
+    @State var showSelectCurrency = false
+    //    ---
+    
     @State var leftAmount = "" // for the text field
     @State var rightAmount = "" // for the text field
+    //    ---
+    @State var leftCurrency: CurrencyEnum = .silverPiece
+    @State var rightCurrency: CurrencyEnum = .goldPiece
     
     var body: some View {
         ZStack {
@@ -42,17 +48,19 @@ struct ContentView: View {
                         // Currency
                         HStack {
                             // Currency image
-                            Image(.silverpiece)
+                            Image(leftCurrency.image)
                                 .resizable()
                                 .scaledToFit()
                                 .frame(height: 33)
                             // Currency text
-                            Text("Silver Piece")
+                            Text(leftCurrency.name)
                                 .font(.headline)
                                 .foregroundStyle(.white)
                         }
                         .padding(.bottom, -5)
-                        
+                        .onTapGesture{
+                            showSelectCurrency.toggle()
+                        }
                         // Left Text field
                         // Bindings are used to keep the input and the stored property in sync ($ -> binding var)
                         TextField("Amount", text: $leftAmount)
@@ -70,16 +78,19 @@ struct ContentView: View {
                         // Currency
                         HStack {
                             // Currency text
-                            Text("Gold piece")
+                            Text(rightCurrency.name)
                                 .font(.headline)
                                 .foregroundStyle(.white)
                             // Currency image
-                            Image(.goldpiece)
+                            Image(rightCurrency.image)
                                 .resizable()
                                 .scaledToFit()
                                 .frame(height: 33)
                         }
                         .padding(.bottom, -5)
+                        .onTapGesture{
+                            showSelectCurrency.toggle()
+                        }
                         
                         // Right Text field
                         TextField("Amount", text: $rightAmount)
@@ -115,6 +126,9 @@ struct ContentView: View {
         }
         .sheet(isPresented: $showExchangeInfo) { // This a function modifier - modify the functionality
             ExchangeInfo()
+        }
+        .sheet(isPresented: $showSelectCurrency) { // This a function modifier - modify the functionality
+            SelectCurrency(topCurrency: leftCurrency, bottomCurrency: rightCurrency)
         }
     }
 }

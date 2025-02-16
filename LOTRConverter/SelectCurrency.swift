@@ -12,7 +12,8 @@ struct SelectCurrency: View {
     // expose dismiss functionality so this view/modal can get dismissed
     @Environment(\.dismiss) var dismiss
     
-    @State var selectedCurrency: CurrencyEnum
+    @State var topCurrency: CurrencyEnum
+    @State var bottomCurrency: CurrencyEnum
     
     var body: some View {
         ZStack{
@@ -24,34 +25,12 @@ struct SelectCurrency: View {
             
             VStack{
                 Text("Select the currency you are starting with:").fontWeight(.bold)
+                //                expected param : actual value of the param (even tho they are called the same)
+                IconGrid(selectedCurrency: topCurrency)
                 
-                // Grid - so we can display all items - the GridItem() X times is the amount of columns
-                LazyVGrid(columns: [GridItem(), GridItem(), GridItem()]){
-                    
-                    ForEach(CurrencyEnum.allCases){ item in
-                        // in SCOPE if both properties are called the same
-                        // We use self to declare the one that is closest to actuall scope of the function
-                        if item == selectedCurrency {
-                            CurrencyItem(currencyImage: item.image, currencyName: item.name)
-                                .shadow(color: .black, radius: 10)
-                                .overlay{
-                                    RoundedRectangle(cornerRadius: 25).stroke(lineWidth: 3).opacity(0.5)
-                                }
-                        } else {
-                            CurrencyItem(currencyImage: item.image, currencyName: item.name).onTapGesture {
-                                selectedCurrency = item
-                            }
-                        }
-                        
-                    }
-                }
-                
-                
-                Text("Select the currency you would like to convert to:").fontWeight(.bold)
-                //                HStack{
-                //                    CurrencyItem(currencyImage: .goldpiece, currencyName: "Gold Piece")
-                //
-                //                }
+                Text("Select the currency you would like to convert to:").fontWeight(.bold).padding(.top)
+                //                expected param : actual value of the param (even tho they are called the same)
+                IconGrid(selectedCurrency: bottomCurrency)
                 
                 Button("Done") {
                     print("Done btn pressed")
@@ -62,11 +41,11 @@ struct SelectCurrency: View {
                 .font(.largeTitle)
                 .padding()
                 .foregroundStyle(.white)
-            }.padding().multilineTextAlignment(.center)
+            }.padding().multilineTextAlignment(.center).foregroundStyle(.black)
         }
     }
 }
 
 #Preview {
-    SelectCurrency(selectedCurrency: .copperPenny)
+    SelectCurrency(topCurrency: .silverPenny, bottomCurrency: .goldPenny)
 }
