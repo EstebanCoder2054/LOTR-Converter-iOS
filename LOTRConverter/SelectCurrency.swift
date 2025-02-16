@@ -12,6 +12,8 @@ struct SelectCurrency: View {
     // expose dismiss functionality so this view/modal can get dismissed
     @Environment(\.dismiss) var dismiss
     
+    @State var selectedCurrency: CurrencyEnum
+    
     var body: some View {
         ZStack{
             
@@ -27,7 +29,19 @@ struct SelectCurrency: View {
                 LazyVGrid(columns: [GridItem(), GridItem(), GridItem()]){
                     
                     ForEach(CurrencyEnum.allCases){ item in
-                        CurrencyItem(currencyImage: item.image, currencyName: item.name)
+                        // in SCOPE if both properties are called the same
+                        // We use self to declare the one that is closest to actuall scope of the function
+                        if item == selectedCurrency {
+                            CurrencyItem(currencyImage: item.image, currencyName: item.name)
+                                .shadow(color: .black, radius: 10)
+                                .overlay{
+                                    RoundedRectangle(cornerRadius: 25).stroke(lineWidth: 3).opacity(0.5)
+                                }
+                        } else {
+                            CurrencyItem(currencyImage: item.image, currencyName: item.name).onTapGesture {
+                                selectedCurrency = item
+                            }
+                        }
                         
                     }
                 }
@@ -54,5 +68,5 @@ struct SelectCurrency: View {
 }
 
 #Preview {
-    SelectCurrency()
+    SelectCurrency(selectedCurrency: .copperPenny)
 }
