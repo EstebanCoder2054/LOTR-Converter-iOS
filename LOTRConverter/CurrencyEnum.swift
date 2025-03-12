@@ -56,4 +56,15 @@ enum CurrencyEnum: Double, CaseIterable, Identifiable {
             "Gold Piece"
         }
     }
+    
+    func convert(amountString: String, targetCurrency: CurrencyEnum) -> String {
+        // guard works as a .? - or even as a try catch
+        guard let doubleAmount = Double(amountString) else {
+            return ""
+        }
+        
+        let convertedAmount = (doubleAmount / self.rawValue) * targetCurrency.rawValue
+        
+        return String(format: "%.2f", convertedAmount);
+    }
 }

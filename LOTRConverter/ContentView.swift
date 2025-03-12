@@ -120,7 +120,7 @@ struct ContentView: View {
                             .font(.largeTitle)
                             .foregroundStyle(.white)
                     }
-                    .padding(.trailing)
+                    .padding(.trailing) 
                 }
             }
         }
