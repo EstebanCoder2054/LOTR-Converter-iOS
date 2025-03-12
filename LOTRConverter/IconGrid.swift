@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct IconGrid: View {
-    @State var selectedCurrency: CurrencyEnum
+    @Binding var selectedCurrency: CurrencyEnum
     
     var body: some View {
         // Grid - so we can display all items - the GridItem() X times is the amount of columns
@@ -35,5 +35,6 @@ struct IconGrid: View {
 }
 
 #Preview {
-    IconGrid(selectedCurrency: .copperPenny)
+    @Previewable @State var currency: CurrencyEnum = .silverPiece
+    IconGrid(selectedCurrency: $currency)
 }
