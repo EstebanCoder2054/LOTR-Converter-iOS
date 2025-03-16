@@ -12,13 +12,15 @@ struct ContentView: View {
     // stored properties - pretty similar to a state - since it changes the value we use var instead of let
     @State var showExchangeInfo = false
     @State var showSelectCurrency = false
-    //    ---
     
     @State var leftAmount = "" // for the text field
     @State var rightAmount = "" // for the text field
-    //    ---
+    
     @State var leftCurrency: CurrencyEnum = .silverPiece
     @State var rightCurrency: CurrencyEnum = .goldPiece
+    
+    @FocusState var leftTyping: Bool
+    @FocusState var rightTyping: Bool
     
     var body: some View {
         ZStack {
@@ -65,6 +67,12 @@ struct ContentView: View {
                         // Bindings are used to keep the input and the stored property in sync ($ -> binding var)
                         TextField("Amount", text: $leftAmount)
                             .textFieldStyle(.roundedBorder)
+                            .focused($leftTyping)
+                            .onChange(of: leftAmount, {
+                                if (leftTyping) {
+                                    rightAmount = leftCurrency.convert(amountString: leftAmount, targetCurrency: rightCurrency)
+                                }
+                            })
                     }
                     
                     // Equal sign - this come from SF Symbols - in this case system name is required because "equal" is not part of our Assets
@@ -96,8 +104,16 @@ struct ContentView: View {
                         TextField("Amount", text: $rightAmount)
                             .textFieldStyle(.roundedBorder)
                             .multilineTextAlignment(.trailing)
+                            .focused($rightTyping)
+                            .onChange(of: rightAmount, {
+                                if (rightTyping){
+                                    
+                                    leftAmount = rightCurrency.convert(amountString: rightAmount, targetCurrency: leftCurrency)
+                                }
+                            })
                     }
                 }
+                .keyboardType(.decimalPad)
                 .padding()
                 .background(.black.opacity(0.5))
                 .clipShape(.buttonBorder)
@@ -120,10 +136,22 @@ struct ContentView: View {
                             .font(.largeTitle)
                             .foregroundStyle(.white)
                     }
-                    .padding(.trailing) 
+                    .padding(.trailing)
                 }
             }
         }
+        
+        //        when the currencies changes - we can listen for those changes, just like an effect in react
+        .onChange(of: leftCurrency, {
+            print("changed left currency, not only explict amount - converting again")
+            leftAmount = rightCurrency.convert(amountString: rightAmount, targetCurrency: leftCurrency)
+        })
+        
+        .onChange(of: rightCurrency, {
+            print("changed right currency, not only explict amount - converting again")
+            rightAmount = leftCurrency.convert(amountString: leftAmount, targetCurrency: rightCurrency)
+        })
+        
         .sheet(isPresented: $showExchangeInfo) { // This a function modifier - modify the functionality
             ExchangeInfo()
         }
