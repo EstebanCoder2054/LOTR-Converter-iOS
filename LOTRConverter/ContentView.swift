@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import TipKit
 
 struct ContentView: View {
     
@@ -21,6 +22,8 @@ struct ContentView: View {
     
     @FocusState var leftTyping: Bool
     @FocusState var rightTyping: Bool
+    
+    let currencyTip = CurrencyTip()
     
     var body: some View {
         ZStack {
@@ -62,7 +65,10 @@ struct ContentView: View {
                         .padding(.bottom, -5)
                         .onTapGesture{
                             showSelectCurrency.toggle()
+                            currencyTip.invalidate(reason: .actionPerformed)
                         }
+                        .popoverTip(currencyTip, arrowEdge: .bottom)
+                        
                         // Left Text field
                         // Bindings are used to keep the input and the stored property in sync ($ -> binding var)
                         TextField("Amount", text: $leftAmount)
@@ -98,6 +104,7 @@ struct ContentView: View {
                         .padding(.bottom, -5)
                         .onTapGesture{
                             showSelectCurrency.toggle()
+                            currencyTip.invalidate(reason: .actionPerformed)
                         }
                         
                         // Right Text field
@@ -139,6 +146,9 @@ struct ContentView: View {
                     .padding(.trailing)
                 }
             }
+        }
+        .task {
+            try? Tips.configure()
         }
         
         //        when the currencies changes - we can listen for those changes, just like an effect in react
