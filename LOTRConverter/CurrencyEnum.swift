@@ -25,7 +25,7 @@ enum CurrencyEnum: Double, CaseIterable, Identifiable {
     var id: CurrencyEnum { self }
 
     
-    // image is going to return an ImageResource
+    // image is going to return an ImageResource	
     // This is a computed property
     var image: ImageResource {
         switch self { // it will look up for the "self" attributes

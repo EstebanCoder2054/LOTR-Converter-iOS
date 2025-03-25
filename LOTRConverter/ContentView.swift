@@ -151,14 +151,33 @@ struct ContentView: View {
             try? Tips.configure()
         }
         
+        .task {
+            if let storedLeftCurrency = UserDefaults.standard.value(forKey: "leftCurrencyData") as? Double,
+               let loadedLeftCurrency = CurrencyEnum(rawValue: storedLeftCurrency) {
+                leftCurrency = loadedLeftCurrency
+                print("Loaded leftCurrency:", loadedLeftCurrency)
+            }
+            
+            if let storedRightCurrency = UserDefaults.standard.value(forKey: "rightCurrencyData") as? Double,
+               let loadedRightCurrency = CurrencyEnum(rawValue: storedRightCurrency) {
+                rightCurrency = loadedRightCurrency
+                print("Loaded rightCurrency:", loadedRightCurrency)
+            }
+        }
+        
+        
         //        when the currencies changes - we can listen for those changes, just like an effect in react
         .onChange(of: leftCurrency, {
-            print("changed left currency, not only explict amount - converting again")
+            print("changed left currency, not only explict amount - converting again: \(leftCurrency.rawValue)")
+            UserDefaults.standard.set(leftCurrency.rawValue, forKey: "leftCurrencyData")
+            print("Stored leftCurrencyData:", UserDefaults.standard.double(forKey: "leftCurrencyData"))
+            
             leftAmount = rightCurrency.convert(amountString: rightAmount, targetCurrency: leftCurrency)
         })
         
         .onChange(of: rightCurrency, {
             print("changed right currency, not only explict amount - converting again")
+            UserDefaults.standard.set(rightCurrency.rawValue, forKey: "rightCurrencyData")
             rightAmount = leftCurrency.convert(amountString: leftAmount, targetCurrency: rightCurrency)
         })
         
